@@ -1,0 +1,8 @@
+EXAMPLE_TEST_CASES = [
+    {
+        "name": "example_1",
+        "heights": [2, 1, 5, 6, 2, 3],
+        "expected": 10,
+        "description": "Standard example case from problem statement",
+    }
+]

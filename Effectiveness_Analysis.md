@@ -22,8 +22,8 @@ def largestRectangleArea(heights: list[int]) -> int:
     for i in range(len(heights) + 1):
         h = 0 if i == len(heights) else heights[i]
         while stack and h < heights[stack[-1]]:
+            width = i if len(stack) == 1 else i - stack[-1]
             height = heights[stack.pop()]
-            width = i if not stack else i - stack[-1] - 1
             max_area = max(max_area, height * width)
         stack.append(i)
     return max_area
@@ -84,11 +84,13 @@ def largestRectangleArea(heights: list[int]) -> int:
 ### Time Complexity
 
 **`meta_ai_solution.py`:**
+
 - Iterating through the heights: O(N) where N is the number of bars in the histogram.
 - Pushing and popping from the stack: Each index is pushed and popped exactly once, taking O(1) time per operation.
 - **Total: O(N)**
 
 **`my_solution.py`:**
+
 - Building the dictionary and set: O(N).
 - Sorting unique heights: O(K log K) where K is the number of unique heights (K <= N).
 - Expanding left and right: In the worst-case scenario (e.g., an ascending array of heights like `[1, 2, 3, ..., N]`), the while loops will repeatedly traverse the remaining indices step-by-step. For the `i`-th height, expanding right can take up to O(N - i) steps.
@@ -97,10 +99,12 @@ def largestRectangleArea(heights: list[int]) -> int:
 ### Space Complexity
 
 **`meta_ai_solution.py`:**
+
 - Stack storage: O(N) in the worst case (e.g., when the heights are strictly increasing).
 - **Total: O(N)**
 
 **`my_solution.py`:**
+
 - `heightsDict`: Stores N indices grouped by K heights, taking O(N) space.
 - `residualIndexes`: Set storing up to N indices, taking O(N) space.
 - `sortedHeights`: List taking O(K) space.
@@ -108,11 +112,11 @@ def largestRectangleArea(heights: list[int]) -> int:
 
 ### Performance Characteristics
 
-| Metric                     | `meta_ai_solution.py`               | `my_solution.py`               |
-| -------------------------- | ----------------------------------- | ------------------------------ |
-| **Time complexity**        | O(N)                                | O(N^2) worst case              |
-| **Space complexity**       | O(N)                                | O(N)                           |
-| **Algorithm type**         | Monotonic Stack                     | Sorting and Linear Expansion   |
+| Metric               | `meta_ai_solution.py` | `my_solution.py`             |
+| -------------------- | --------------------- | ---------------------------- |
+| **Time complexity**  | O(N)                  | O(N^2) worst case            |
+| **Space complexity** | O(N)                  | O(N)                         |
+| **Algorithm type**   | Monotonic Stack       | Sorting and Linear Expansion |
 
 ---
 
